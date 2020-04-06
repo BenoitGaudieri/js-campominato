@@ -25,18 +25,23 @@ function randomNumbers(min, max) {
     return output;
 }
 
+/**
+ * Sort numbers with array.sort(sortNumber)
+ */
 function sortNumber(a, b) {
     return a - b;
 }
 
+// Declaration
 var gameOver = false;
 var counter = 0;
 var playerGuess = [];
 var difficulty = "";
 var diffCoeff = 100;
 
+// Difficulty setting
 while (
-    !difficulty &&
+    // !difficulty &&
     difficulty != "facile" &&
     difficulty != "medio" &&
     difficulty != "difficile"
@@ -59,11 +64,12 @@ switch (difficulty) {
         break;
 }
 
+// Generate mines and sort for easier debug
 var mines = randomNumbers(1, diffCoeff);
 mines.sort(sortNumber);
-
 console.log(mines);
 
+// Main logic
 while (!gameOver) {
     var playerChoise = parseInt(prompt("Scegli un numero da 1 a " + diffCoeff));
     while (playerGuess.includes(playerChoise)) {
