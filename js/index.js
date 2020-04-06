@@ -40,7 +40,6 @@ var difficulty = "";
 var diffCoeff = 100;
 
 // Difficulty setting
-// while (difficulty != ("facile" || "medio" || "difficile")) {
 while (
     difficulty != "facile" &&
     difficulty != "medio" &&
@@ -74,13 +73,11 @@ while (!gameOver) {
     var playerChoise = parseInt(prompt("Scegli un numero da 1 a " + diffCoeff));
     while (playerGuess.includes(playerChoise) || isNaN(playerChoise)) {
         playerChoise = parseInt(
-            prompt(
-                "Hai già scelto quel numero! \nScegli un numero da 1 a " +
-                    diffCoeff
-            )
+            prompt("Numero non valido!\nScegli un numero da 1 a " + diffCoeff)
         );
     }
     if (mines.includes(playerChoise)) {
+        console.log("Hai perso!");
         gameOver = true;
     } else {
         counter += 1;
