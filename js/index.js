@@ -10,25 +10,62 @@
 // con difficoltà 2=> tra 1 e 50
 
 /**
- * Generate 16 random numbers
+ * Generate 16 random unique numbers
  */
 function randomNumbers(min, max) {
     var output = [];
+    var candidate = 0;
     for (var i = 0; i < 16; i++) {
-        output.push(Math.floor(Math.random() * Math.floor(max - min)) + min);
+        candidate = Math.floor(Math.random() * Math.floor(max - min)) + min;
+        while (output.includes(candidate)) {
+            candidate = Math.floor(Math.random() * Math.floor(max - min)) + min;
+        }
+        output.push(candidate);
     }
     return output;
 }
-var mines = randomNumbers(1, 100);
+
 var gameOver = false;
 var counter = 0;
 var playerGuess = [];
+var difficulty = "";
+var diffCoeff = 100;
+
+while (
+    !difficulty &&
+    difficulty != "facile" &&
+    difficulty != "medio" &&
+    difficulty != "difficile"
+) {
+    difficulty = prompt(
+        "A che livello di difficoltà vuoi giocare? \nFacile\nMedio\nDifficile"
+    ).toLowerCase();
+    console.log(difficulty);
+}
+
+switch (difficulty) {
+    case "facile":
+        diffCoeff = 100;
+        break;
+    case "medio":
+        diffCoeff = 80;
+        break;
+    case "difficile":
+        diffCoeff = 50;
+        break;
+}
+
+var mines = randomNumbers(1, diffCoeff);
+console.log(mines.sort());
 
 while (!gameOver) {
-    var playerChoise = parseInt(prompt("Scegli un numero da 1 a 100"));
+    var playerChoise = parseInt(prompt("Scegli un numero da 1 a " + diffCoeff));
     while (playerGuess.includes(playerChoise)) {
         playerChoise = parseInt(
-            prompt("Hai già scelto quel numero! \nScegli un numero da 1 a 100")
+            prompt(
+                "Hai già scelto quel numero! \nScegli un numero da 1 a " +
+                    diffCoeff
+            )
         );
     }
     if (mines.includes(playerChoise)) {
@@ -37,9 +74,9 @@ while (!gameOver) {
         counter += 1;
         playerGuess.push(playerChoise);
     }
-    if (playerGuess.length == 84) {
+    if (playerGuess.length == diffCoeff - 16) {
         console.log("HAI VINTO!");
-        break;
+        gameOver = true;
     }
 }
 console.log(
