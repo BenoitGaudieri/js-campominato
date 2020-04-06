@@ -25,6 +25,10 @@ function randomNumbers(min, max) {
     return output;
 }
 
+function sortNumber(a, b) {
+    return a - b;
+}
+
 var gameOver = false;
 var counter = 0;
 var playerGuess = [];
@@ -56,7 +60,9 @@ switch (difficulty) {
 }
 
 var mines = randomNumbers(1, diffCoeff);
-console.log(mines.sort());
+mines.sort(sortNumber);
+
+console.log(mines);
 
 while (!gameOver) {
     var playerChoise = parseInt(prompt("Scegli un numero da 1 a " + diffCoeff));
@@ -83,5 +89,5 @@ console.log(
     "Hai scelto il numero giusto " +
         counter +
         " volte. \nLe bombe erano: " +
-        mines.sort()
+        mines
 );
