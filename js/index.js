@@ -118,26 +118,37 @@ startButton.addEventListener("click", function () {
     startGame();
 });
 
+// HTML MINESWEEPER
+// It's 1 am in the morning but I'm gonna try anyway.
+// I'm grabbing the div that's going to be populated by my mines
 var mineField = document.getElementById("js-mine-field");
-var mineDiv = "";
 
+// I'm going to prepare a string containing the whole innerHTML
+var mineDiv = "";
 for (var i = 1; i < 101; i++) {
     mineDiv += `<div class='mine red'><span>${i}</span></div>`;
 }
+// and now I'm populating the minefield with the html that I've prepared
 mineField.innerHTML = mineDiv;
 
+// This is going to get tricky. Using getElementsByClassName for the first time.
+// This returned an object that I had to learn how to use.
 var mineElement = document.getElementsByClassName("mine");
-// mineElement.addEventListener("click", function () {
-//     console.log("boh");
-// });
 
+// Many trial and errors later, I realized how to iterate and add an eventListener to the object.
+// object[i]
 for (var i = 0; i < mineElement.length; i++) {
     mineElement[i].addEventListener("click", superHot);
 }
 
+// the real magic is here.
 function superHot() {
     var wrong = randomNumbers(1, 100);
     var pick = "";
+    // this. this is the real magic. I'm not entirely sure how it works.
+    // it just does.
+    // with this. I'm capable to obtain the object that it's passed by the function.
+    // all it remains is to store the innerText (the mine number) into a var and check if it's game over.
     pick = parseInt(this.innerText);
     if (!wrong.includes(pick)) {
         this.className = "mine green";
@@ -145,3 +156,5 @@ function superHot() {
         mineField.innerHTML = "<span class='too-much'>GAME OVER</span>";
     }
 }
+
+// TODO: ADD WINCON AND RELOAD BUTTON
