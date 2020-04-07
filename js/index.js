@@ -33,64 +33,79 @@ function sortNumber(a, b) {
 }
 
 // Declaration
-var gameOver = false;
-var counter = 0;
-var playerGuess = [];
-var difficulty = "";
 var diffCoeff = 100;
 
 // Difficulty setting
-while (
-    difficulty != "facile" &&
-    difficulty != "medio" &&
-    difficulty != "difficile"
-) {
-    difficulty = prompt(
-        "A che livello di difficoltà vuoi giocare? \nFacile\nMedio\nDifficile"
-    ).toLowerCase();
-    console.log(difficulty);
+function difficultySet() {
+    var difficulty = "";
+
+    while (
+        difficulty != "facile" &&
+        difficulty != "medio" &&
+        difficulty != "difficile"
+    ) {
+        difficulty = prompt(
+            "A che livello di difficoltà vuoi giocare? \nFacile\nMedio\nDifficile"
+        ).toLowerCase();
+        console.log(difficulty);
+    }
+    switch (difficulty) {
+        case "facile":
+            diffCoeff = 100;
+            break;
+        case "medio":
+            diffCoeff = 80;
+            break;
+        case "difficile":
+            diffCoeff = 50;
+            break;
+    }
 }
 
-switch (difficulty) {
-    case "facile":
-        diffCoeff = 100;
-        break;
-    case "medio":
-        diffCoeff = 80;
-        break;
-    case "difficile":
-        diffCoeff = 50;
-        break;
-}
+function gameOn() {
+    var gameOver = false;
+    var counter = 0;
+    var playerGuess = [];
+    // Generate mines and sort for easier debug
+    var mines = randomNumbers(1, diffCoeff);
+    mines.sort(sortNumber);
+    console.log(mines);
 
-// Generate mines and sort for easier debug
-var mines = randomNumbers(1, diffCoeff);
-mines.sort(sortNumber);
-console.log(mines);
-
-// Main logic
-while (!gameOver) {
-    var playerChoise = parseInt(prompt("Scegli un numero da 1 a " + diffCoeff));
-    while (playerGuess.includes(playerChoise) || isNaN(playerChoise)) {
-        playerChoise = parseInt(
-            prompt("Numero non valido!\nScegli un numero da 1 a " + diffCoeff)
+    // Main logic
+    while (!gameOver) {
+        var playerChoise = parseInt(
+            prompt("Scegli un numero da 1 a " + diffCoeff)
         );
+        while (playerGuess.includes(playerChoise) || isNaN(playerChoise)) {
+            playerChoise = parseInt(
+                prompt(
+                    "Numero non valido!\nScegli un numero da 1 a " + diffCoeff
+                )
+            );
+        }
+        if (mines.includes(playerChoise)) {
+            console.log("Hai perso!");
+            gameOver = true;
+        } else {
+            counter += 1;
+            playerGuess.push(playerChoise);
+        }
+        if (playerGuess.length == diffCoeff - 16) {
+            console.log("HAI VINTO!");
+            gameOver = true;
+        }
     }
-    if (mines.includes(playerChoise)) {
-        console.log("Hai perso!");
-        gameOver = true;
-    } else {
-        counter += 1;
-        playerGuess.push(playerChoise);
-    }
-    if (playerGuess.length == diffCoeff - 16) {
-        console.log("HAI VINTO!");
-        gameOver = true;
-    }
+    console.log(
+        "Hai scelto il numero giusto " +
+            counter +
+            " volte. \nLe bombe erano: " +
+            mines
+    );
 }
-console.log(
-    "Hai scelto il numero giusto " +
-        counter +
-        " volte. \nLe bombe erano: " +
-        mines
-);
+
+function startGame() {
+    difficultySet();
+    gameOn();
+}
+
+startGame();
