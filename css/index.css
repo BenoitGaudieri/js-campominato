@@ -243,7 +243,29 @@ body {
 .too-much {
     word-spacing: 5px;
     line-height: 80px;
-    font-size: 49px;
+    font-size: 100px;
+    font-weight: 700;
+    color: #ff0000;
+}
+
+.mine-field {
+    display: flex;
+    flex-wrap: wrap;
+    text-align: center;
+}
+
+.mine {
+    width: 50px;
+    height: 50px;
+    margin: 5px;
+}
+
+.red {
+    background-color: #ff0000;
+}
+
+.green {
+    background-color: #00a000;
 }
 
 /* 

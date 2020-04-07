@@ -9,6 +9,7 @@
 // con difficoltà 1 =>  tra 1 e 80
 // con difficoltà 2=> tra 1 e 50
 
+// UTILITY FUNCTIONS
 /**
  * Generate 16 random unique numbers
  */
@@ -24,7 +25,6 @@ function randomNumbers(min, max) {
     }
     return output;
 }
-
 /**
  * Sort numbers with array.sort(sortNumber)
  */
@@ -32,13 +32,12 @@ function sortNumber(a, b) {
     return a - b;
 }
 
-// Declaration
+// Standard difficulty
 var diffCoeff = 100;
 
 // Difficulty setting
 function difficultySet() {
     var difficulty = "";
-
     while (
         difficulty != "facile" &&
         difficulty != "medio" &&
@@ -62,15 +61,20 @@ function difficultySet() {
     }
 }
 
+// Generate mines and sort for easier debug
+function generateMines() {
+    // Global var
+    mines = randomNumbers(1, diffCoeff);
+    mines.sort(sortNumber);
+    console.log(mines);
+}
+
 function gameOn() {
     var gameOver = false;
     var counter = 0;
     var playerGuess = [];
-    // Generate mines and sort for easier debug
-    var mines = randomNumbers(1, diffCoeff);
-    mines.sort(sortNumber);
-    console.log(mines);
 
+    generateMines();
     // Main logic
     while (!gameOver) {
         var playerChoise = parseInt(
@@ -113,3 +117,31 @@ var startButton = document.getElementById("start");
 startButton.addEventListener("click", function () {
     startGame();
 });
+
+var mineField = document.getElementById("js-mine-field");
+var mineDiv = "";
+
+for (var i = 1; i < 101; i++) {
+    mineDiv += `<div class='mine red'>${i}</div>`;
+}
+mineField.innerHTML = mineDiv;
+
+var mineElement = document.getElementsByClassName("mine");
+// mineElement.addEventListener("click", function () {
+//     console.log("boh");
+// });
+
+for (var i = 0; i < mineElement.length; i++) {
+    mineElement[i].addEventListener("click", superHot);
+}
+
+function superHot() {
+    var wrong = randomNumbers(1, 100);
+    var pick = "";
+    pick = parseInt(this.innerText);
+    if (!wrong.includes(pick)) {
+        this.className = "mine green";
+    } else {
+        mineField.innerHTML = "<span class='too-much'>GAME OVER</span>";
+    }
+}
