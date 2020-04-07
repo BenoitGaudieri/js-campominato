@@ -122,7 +122,7 @@ var mineField = document.getElementById("js-mine-field");
 var mineDiv = "";
 
 for (var i = 1; i < 101; i++) {
-    mineDiv += `<div class='mine red'>${i}</div>`;
+    mineDiv += `<div class='mine red'><span>${i}</span></div>`;
 }
 mineField.innerHTML = mineDiv;
 
