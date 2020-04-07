@@ -108,4 +108,8 @@ function startGame() {
     gameOn();
 }
 
-startGame();
+var startButton = document.getElementById("start");
+
+startButton.addEventListener("click", function () {
+    startGame();
+});
