@@ -264,7 +264,6 @@ body {
     align-items: center;
     justify-content: center;
     cursor: pointer;
-    border: 5px solid #000;
     color: #ffeb3b;
 }
 
@@ -272,12 +271,16 @@ body {
     background-color: #ff0000;
     background-image: url(../img/bomb.png);
     background-size: cover;
-    background-position: center;
-    background-repeat: no-repeat;
+    border: 5px solid #000;
 }
 
 .green {
     background-color: #00a000;
+    background-image: url(../img/flower.png);
+    background-size: cover;
+    filter: invert(32%) sepia(80%) saturate(3448%) hue-rotate(111deg)
+        brightness(100%) contrast(108%);
+    color: #000;
 }
 
 /* 
