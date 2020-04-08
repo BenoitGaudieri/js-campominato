@@ -259,14 +259,21 @@ body {
     width: 70px;
     height: 70px;
     margin: 5px;
-    font-size: 40px;
+    font-size: 38px;
     display: flex;
     align-items: center;
     justify-content: center;
+    cursor: pointer;
+    border: 5px solid #000;
+    color: #ffeb3b;
 }
 
 .red {
     background-color: #ff0000;
+    background-image: url(../img/bomb.png);
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
 }
 
 .green {
